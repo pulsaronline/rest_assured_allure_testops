@@ -5,6 +5,7 @@ import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.restassured.AllureRestAssured;
 import models.AuthorisationResponse;
 import models.Books;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +13,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static filters.CustomLogFilter.customLogFilter;
-import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
@@ -25,34 +25,32 @@ public class BookStoreTests {
     @Test
     @Tag("api")
     @Severity(SeverityLevel.MINOR)
+    @DisplayName("Get test (GET Books)")
     void noLogsTest() {
-        step("Get test (GET Books)", (step)-> {
         given()
                 .get("https://demoqa.com/BookStore/v1/Books")
                 .then()
                 .body("books", hasSize(greaterThan(0)));
-        });
     }
 
     @Test
     @Tag("api")
     @Severity(SeverityLevel.MINOR)
+    @DisplayName("Get test with logs (GET Books)")
     void withAllLogsTest() {
-        step("Get test with logs (GET Books)", (step)-> {
         given()
                 .log().all()
                 .get("https://demoqa.com/BookStore/v1/Books")
                 .then()
                 .log().all()
                 .body("books", hasSize(greaterThan(0)));
-        });
     }
 
     @Test
     @Tag("api")
     @Severity(SeverityLevel.MINOR)
+    @DisplayName("Get test with chosen logs (GET Books)")
     void withSomeLogsTest() {
-        step("Get test with chosen logs (GET Books)", (step)-> {
         given()
                 .log().uri()
                 .log().body()
@@ -60,14 +58,13 @@ public class BookStoreTests {
                 .then()
                 .log().body()
                 .body("books", hasSize(greaterThan(0)));
-        });
     }
 
     @Test
     @Tag("api")
     @Severity(SeverityLevel.NORMAL)
+    @DisplayName("Post test (POST Generate user token)")
     void withSomePostTest() {
-        step("Post test (POST Generate user token)", (step)-> {
         given()
                 .contentType(JSON)
                 .body("{ \"userName\": \"alex\", \"password\": \"W1_#zqwerty\" }")
@@ -79,14 +76,13 @@ public class BookStoreTests {
                 .log().body()
                 .body("status", is("Success"))
                 .body("result", is("User authorized successfully."));
-        });
     }
 
     @Test
     @Tag("api")
     @Severity(SeverityLevel.NORMAL)
+    @DisplayName("Allure listener test with map (POST Generate user token)")
     void withAllureListenerTest() {
-        step("Allure listener test with map (POST Generate user token)", (step)-> {
         Map<String, Object> data = new HashMap<>();
         data.put("userName", "alex");
         data.put("password", "W1_#zqwerty");
@@ -103,14 +99,13 @@ public class BookStoreTests {
                 .log().body()
                 .body("status", is("Success"))
                 .body("result", is("User authorized successfully."));
-        });
     }
 
     @Test
     @Tag("api")
     @Severity(SeverityLevel.NORMAL)
+    @DisplayName("Custom filter test with map (POST Generate user token)")
     void withCustomFilterTest() {
-        step("Custom filter test with map (POST Generate user token)", (step)-> {
         Map<String, Object> data = new HashMap<>();
         data.put("userName", "alex");
         data.put("password", "W1_#zqwerty");
@@ -127,14 +122,13 @@ public class BookStoreTests {
                 .log().body()
                 .body("status", is("Success"))
                 .body("result", is("User authorized successfully."));
-        });
     }
 
     @Test
     @Tag("api")
     @Severity(SeverityLevel.NORMAL)
+    @DisplayName("AssertJ test with map (POST Generate user token)")
     void withAssertJTest() {
-        step("AssertJ test with map (POST Generate user token)", (step)-> {
         Map<String, Object> data = new HashMap<>();
         data.put("userName", "alex");
         data.put("password", "W1_#zqwerty");
@@ -152,14 +146,13 @@ public class BookStoreTests {
                         .extract().asString();
         assertThat(response).contains("\"status\":\"Success\"");
         assertThat(response).contains("\"result\":\"User authorized successfully.\"");
-        });
     }
 
     @Test
     @Tag("api")
     @Severity(SeverityLevel.CRITICAL)
+    @DisplayName("AssertJ model test with map (POST Generate user token)")
     void withModelTest() {
-        step("AssertJ model test with map (POST Generate user token)", (step)-> {
         Map<String, Object> data = new HashMap<>();
         data.put("userName", "alex");
         data.put("password", "W1_#zqwerty");
@@ -177,14 +170,14 @@ public class BookStoreTests {
                         .extract().as(AuthorisationResponse.class);
         assertThat(response.getStatus()).contains("Success");
         assertThat(response.getResult()).contains("User authorized successfully.");
-        });
+
     }
 
     @Test
     @Tag("api")
     @Severity(SeverityLevel.CRITICAL)
+    @DisplayName("Model test (GET Books)")
     void booksModelTest() {
-        step("Model test (GET Books)", (step)-> {
         Books books =
                 given()
                         .log().uri()
@@ -194,14 +187,13 @@ public class BookStoreTests {
                         .log().body()
                         .extract().as(Books.class);
         System.out.println(books);
-        });
     }
 
     @Test
     @Tag("api")
     @Severity(SeverityLevel.BLOCKER)
+    @DisplayName("Json schema test (GET Books schema)")
     void booksJsonSchemaTest() {
-        step("Json schema test (GET Books schema)", (step)-> {
             given()
                 .log().uri()
                 .log().body()
@@ -209,6 +201,5 @@ public class BookStoreTests {
                 .then()
                 .log().body()
                 .body(matchesJsonSchemaInClasspath("jsonSchemas/booklist_response.json"));
-        });
     }
 }
