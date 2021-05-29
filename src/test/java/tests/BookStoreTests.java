@@ -12,6 +12,7 @@ import static filters.CustomLogFilter.customLogFilter;
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasSize;
@@ -118,8 +119,8 @@ public class BookStoreTests {
                         .then()
                         .log().body()
                         .extract().asString();
-        assert (response).contains("\"status\":\"Success\"");
-        assert (response).contains("\"result\":\"User authorized successfully.\"");
+        assertThat(response).contains("\"status\":\"Success\"");
+        assertThat(response).contains("\"result\":\"User authorized successfully.\"");
     }
 
     @Test
@@ -139,8 +140,8 @@ public class BookStoreTests {
                         .then()
                         .log().body()
                         .extract().as(AuthorisationResponse.class);
-        assert (response.getStatus()).contains("Success");
-        assert (response.getResult()).contains("User authorized successfully.");
+        assertThat(response.getStatus()).contains("Success");
+        assertThat(response.getResult()).contains("User authorized successfully.");
     }
 
     @Test

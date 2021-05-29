@@ -13,7 +13,7 @@ import static helpers.DriverHelper.*;
 
 @ExtendWith({AllureJunit5.class})
 public class TestBase {
-    public static final String BASEURL = "https://job.playrix.com/";
+    //public static final String BASEURL = "https://job.playrix.com/";
 
     @BeforeAll
     static void setUp() {
@@ -28,7 +28,6 @@ public class TestBase {
 
         attachScreenshot("Last screenshot");
         attachPageSource();
-//        attachNetwork(); // todo
         attachAsText("Browser console logs", getConsoleLogs());
 
         closeWebDriver();
