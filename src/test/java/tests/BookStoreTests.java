@@ -3,6 +3,7 @@ package tests;
 import io.qameta.allure.restassured.AllureRestAssured;
 import models.AuthorisationResponse;
 import models.Books;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -19,6 +20,7 @@ import static org.hamcrest.Matchers.hasSize;
 
 public class BookStoreTests {
     @Test
+    @Tag("api")
     void noLogsTest() {
         given()
                 .get("https://demoqa.com/BookStore/v1/Books")
@@ -27,6 +29,7 @@ public class BookStoreTests {
     }
 
     @Test
+    @Tag("api")
     void withAllLogsTest() {
         given()
                 .log().all()
@@ -37,6 +40,7 @@ public class BookStoreTests {
     }
 
     @Test
+    @Tag("api")
     void withSomeLogsTest() {
         given()
                 .log().uri()
@@ -48,6 +52,7 @@ public class BookStoreTests {
     }
 
     @Test
+    @Tag("api")
     void withSomePostTest() {
         given()
                 .contentType(JSON)
@@ -63,6 +68,7 @@ public class BookStoreTests {
     }
 
     @Test
+    @Tag("api")
     void withAllureListenerTest() {
         Map<String, Object> data = new HashMap<>();
         data.put("userName", "alex");
@@ -83,6 +89,7 @@ public class BookStoreTests {
     }
 
     @Test
+    @Tag("api")
     void withCustomFilterTest() {
         Map<String, Object> data = new HashMap<>();
         data.put("userName", "alex");
@@ -103,6 +110,7 @@ public class BookStoreTests {
     }
 
     @Test
+    @Tag("api")
     void withAssertJTest() {
         Map<String, Object> data = new HashMap<>();
         data.put("userName", "alex");
@@ -124,6 +132,7 @@ public class BookStoreTests {
     }
 
     @Test
+    @Tag("api")
     void withModelTest() {
         Map<String, Object> data = new HashMap<>();
         data.put("userName", "alex");
@@ -145,6 +154,7 @@ public class BookStoreTests {
     }
 
     @Test
+    @Tag("api")
     void booksModelTest() {
         Books books =
                 given()
@@ -154,10 +164,11 @@ public class BookStoreTests {
                         .then()
                         .log().body()
                         .extract().as(Books.class);
-        //System.out.println(books);
+        System.out.println(books);
     }
 
     @Test
+    @Tag("api")
     void booksJsonSchemaTest() {
         given()
                 .log().uri()

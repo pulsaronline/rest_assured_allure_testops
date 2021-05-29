@@ -13,7 +13,6 @@ import static helpers.DriverHelper.*;
 
 @ExtendWith({AllureJunit5.class})
 public class TestBase {
-    //public static final String BASEURL = "https://job.playrix.com/";
 
     @BeforeAll
     static void setUp() {
