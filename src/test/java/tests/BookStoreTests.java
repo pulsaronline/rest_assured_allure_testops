@@ -21,6 +21,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasSize;
 
+@DisplayName("REST API https://demoqa.com tests")
 public class BookStoreTests {
     @Test
     @Tag("api")
@@ -132,6 +133,7 @@ public class BookStoreTests {
         Map<String, Object> data = new HashMap<>();
         data.put("userName", "alex");
         data.put("password", "W1_#zqwerty");
+
         String response =
                 given()
                         .contentType(JSON)
