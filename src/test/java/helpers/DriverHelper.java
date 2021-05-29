@@ -1,6 +1,5 @@
 package helpers;
 
-import cloud.autotests.tests.cv.TestData;
 import com.codeborne.selenide.Configuration;
 import config.DriverConfig;
 import io.qameta.allure.selenide.AllureSelenide;
@@ -8,6 +7,7 @@ import org.aeonbits.owner.ConfigFactory;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import tests.TestData;
 
 import java.util.HashMap;
 import java.util.Map;
