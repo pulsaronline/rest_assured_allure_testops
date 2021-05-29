@@ -4,13 +4,12 @@ plugins {
 }
 
 repositories {
+    maven {url = "https://dl.bintray.com/qameta/maven-unstable/"}
     mavenCentral()
 }
 
-def selenideVersion = "5.21.0",
-    restAssuredVersion = "4.3.3",
-    allureVersion = "2.13.9",
-    slf4jVersion = "1.7.29",
+def allureVersion = "2.13.9",
+    selenideVersion = "5.20.1",
     junitVersion = "5.7.1"
 
 allure {
@@ -26,35 +25,27 @@ allure {
 dependencies {
     testImplementation(
             "org.aspectj:aspectjweaver:1.9.6",
-            "org.aeonbits.owner:owner:1.0.12",
             "com.codeborne:selenide:$selenideVersion",
-            "io.rest-assured:rest-assured:$restAssuredVersion",
-            "io.rest-assured:json-schema-validator:3.3.0",
             "io.qameta.allure:allure-selenide:$allureVersion",
+            "io.rest-assured:rest-assured:4.3.1",
+            "io.rest-assured:json-schema-validator:3.3.0",
             "io.qameta.allure:allure-rest-assured:$allureVersion",
-            "com.fasterxml.jackson.core:jackson-annotations:2.10.3",
+            "org.aeonbits.owner:owner:1.0.12",
+            "org.assertj:assertj-core:3.19.0",
             "org.junit.jupiter:junit-jupiter-api:$junitVersion")
-    testRuntimeOnly(
-            "org.slf4j:slf4j-simple:$slf4jVersion",
-            "org.junit.jupiter:junit-jupiter-engine:$junitVersion")
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
 }
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 tasks.withType(Test) {
     systemProperties(System.getProperties())
     useJUnitPlatform()
-
-    testLogging {
-        lifecycle {
-//            events "started", "failed"
-            events "started", "skipped", "failed", "standard_error", "standard_out"
-            exceptionFormat "short"
-        }
-    }
-    systemProperty "junit.jupiter.extensions.autodetection.enabled", "true"
+    systemProperty "chromeoptions.prefs", "intl.accept_languages=en"
 
     if (System.getProperty("threads") != null) {
         systemProperties += [
@@ -64,5 +55,26 @@ tasks.withType(Test) {
                 'junit.jupiter.execution.parallel.config.strategy'         : 'fixed',
                 'junit.jupiter.execution.parallel.config.fixed.parallelism': System.getProperty("threads").toInteger()
         ]
+    }
+
+    testLogging {
+        lifecycle {
+//            events "started", "failed"
+            events "started", "skipped", "failed", "standard_error", "standard_out"
+            exceptionFormat "short"
+        }
+    }
+}
+
+
+task ui(type: Test) {
+    useJUnitPlatform {
+        includeTags 'ui'
+    }
+}
+
+task api(type: Test) {
+    useJUnitPlatform {
+        includeTags 'api'
     }
 }
