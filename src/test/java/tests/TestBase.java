@@ -13,7 +13,6 @@ import static helpers.DriverHelper.*;
 
 @ExtendWith({AllureJunit5.class})
 public class TestBase {
-    public final String BASE_URL = "https://demoqa.com";
 
     @BeforeAll
     static void setUp() {

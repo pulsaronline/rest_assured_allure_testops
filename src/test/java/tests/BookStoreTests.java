@@ -1,6 +1,5 @@
 package tests;
 
-import io.qameta.allure.Link;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.restassured.AllureRestAssured;
@@ -22,10 +21,9 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasSize;
 
-public class BookStoreTests extends TestBase{
+public class BookStoreTests {
     @Test
     @Tag("api")
-    @Link(name = "Base_URL", url = BASE_URL)
     @Severity(SeverityLevel.MINOR)
     void noLogsTest() {
         step("Get test (GET Books)", (step)-> {
@@ -38,7 +36,6 @@ public class BookStoreTests extends TestBase{
 
     @Test
     @Tag("api")
-    @Link(name = "Base_URL", url = BASE_URL)
     @Severity(SeverityLevel.MINOR)
     void withAllLogsTest() {
         step("Get test with logs (GET Books)", (step)-> {
@@ -53,7 +50,6 @@ public class BookStoreTests extends TestBase{
 
     @Test
     @Tag("api")
-    @Link(name = "Base_URL", url = BASE_URL)
     @Severity(SeverityLevel.MINOR)
     void withSomeLogsTest() {
         step("Get test with chosen logs (GET Books)", (step)-> {
@@ -69,7 +65,6 @@ public class BookStoreTests extends TestBase{
 
     @Test
     @Tag("api")
-    @Link(name = "Base_URL", url = BASE_URL)
     @Severity(SeverityLevel.NORMAL)
     void withSomePostTest() {
         step("Post test (POST Generate user token)", (step)-> {
@@ -89,7 +84,6 @@ public class BookStoreTests extends TestBase{
 
     @Test
     @Tag("api")
-    @Link(name = "Base_URL", url = BASE_URL)
     @Severity(SeverityLevel.NORMAL)
     void withAllureListenerTest() {
         step("Allure listener test with map (POST Generate user token)", (step)-> {
@@ -114,7 +108,6 @@ public class BookStoreTests extends TestBase{
 
     @Test
     @Tag("api")
-    @Link(name = "Base_URL", url = BASE_URL)
     @Severity(SeverityLevel.NORMAL)
     void withCustomFilterTest() {
         step("Custom filter test with map (POST Generate user token)", (step)-> {
@@ -139,7 +132,6 @@ public class BookStoreTests extends TestBase{
 
     @Test
     @Tag("api")
-    @Link(name = "Base_URL", url = BASE_URL)
     @Severity(SeverityLevel.NORMAL)
     void withAssertJTest() {
         step("AssertJ test with map (POST Generate user token)", (step)-> {
@@ -165,7 +157,6 @@ public class BookStoreTests extends TestBase{
 
     @Test
     @Tag("api")
-    @Link(name = "Base_URL", url = BASE_URL)
     @Severity(SeverityLevel.CRITICAL)
     void withModelTest() {
         step("AssertJ model test with map (POST Generate user token)", (step)-> {
@@ -191,7 +182,6 @@ public class BookStoreTests extends TestBase{
 
     @Test
     @Tag("api")
-    @Link(name = "Base_URL", url = BASE_URL)
     @Severity(SeverityLevel.CRITICAL)
     void booksModelTest() {
         step("Model test (GET Books)", (step)-> {
@@ -209,7 +199,6 @@ public class BookStoreTests extends TestBase{
 
     @Test
     @Tag("api")
-    @Link(name = "Base_URL", url = BASE_URL)
     @Severity(SeverityLevel.BLOCKER)
     void booksJsonSchemaTest() {
         step("Json schema test (GET Books schema)", (step)-> {
